@@ -17,6 +17,8 @@ Set-ADUser `
 #Remove ADUser
 Remove-ADUser -Name ex. Annlong
 
+<------------>
+
 #Let's somewhat automate this with vars
 #This will prompt you to fill out the varibles on the screen in powershell. Not too much faster then ADUC, but hey we are learning. 
 
@@ -34,3 +36,5 @@ $pwd   = Read-Host -Prompt "Enter user's password: "
 -UserPrincipalName $lname `
 -AccountPassword(ConvertTo-SecureString $pwd -AsPlainText -Force) `
 -Path "OU=Employee, DC=int, DC=lab, DC=com"
+
+<------------>
