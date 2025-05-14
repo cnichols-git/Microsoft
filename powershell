@@ -1,0 +1,36 @@
+## PowerShell ISE (Integrated Scripting Environment)
+# Powershell basic script to add a new user
+
+New-ADUser `
+-Name Annlong `
+-Surname User `
+-UserPrincipalName along
+-AccountPassword (ConvertTo-SecureString $_.Password -AsPlainText -Force) `
+-Path "OU=Employees,DC=domain,DC=com"
+
+# Modify existing user
+Set-ADUser `
+-Name "UserName" `
+-Enable-ADUser -Identity Annlong
+-Get-ADUser -Identity Annlong
+
+#Remove ADUser
+Remove-ADUser -Name ex. Annlong
+
+#Let's somewhat automate this with vars
+#This will prompt you to fill out the varibles on the screen in powershell. Not too much faster then ADUC, but hey we are learning. 
+
+#first declare the variables
+$fname = Read-Host -Prompt "Enter user's full name: "
+$gname = Read-Host -Prompt "Enter user's first name: "
+$sname = Read-Host -Prompt "Enter user's last name: "
+$lname = Read-Host -Prompt "Enter user's login name: "
+$pwd   = Read-Host -Prompt "Enter user's password: "
+
+-ADUser `
+-Name      $fname `
+-GivenName $gname `
+-Surname   $sname `
+-UserPrincipalName $lname `
+-AccountPassword(ConvertTo-SecureString $pwd -AsPlainText -Force) `
+-Path "OU=Employee, DC=int, DC=lab, DC=com"
