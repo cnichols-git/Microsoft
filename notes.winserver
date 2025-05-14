@@ -1,3 +1,14 @@
-Windows server 2022 XCP-NG server set up
-- two nics, one for Internet and one for internal
+First test with XCP-ng
+Painfull and not loving the expirence
 
+First pain point is the local storage will fill up do to only allowing 15ish GB and that convers two servers Win2019 and a client Win11.
+I set up an NFS share on my Plex server to resolve this issue. 
+
+For now I am using Proxmox and realzie my lab box is getting old and RHEL (Alma/Rocky) no longer support old CPUs, boo. 
+For now I can run : 
+- Debain
+- Rocky Linux 8
+- Winserver 2019
+- Win11, but cannot not update past a certain patch due to old hardware
+
+2025 build new virtual lab server, yeah!
