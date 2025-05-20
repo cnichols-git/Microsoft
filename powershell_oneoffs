@@ -38,3 +38,10 @@ $pwd   = Read-Host -Prompt "Enter user's password: "
 -Path "OU=Employee, DC=int, DC=lab, DC=com"
 
 <------------>
+## List out the name of logs
+Get-EventLog -List
+
+## Now use the name ex. Sercurity to list out the newest 10 logs and output to a file
+Get-EventLog -LogName Security -Newest 10 | Out-file -FilePath C:\Users\Administrator\Documents\Scans\newScan.txt
+
+<------------>
