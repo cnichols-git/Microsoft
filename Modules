@@ -1,0 +1,25 @@
+# https://www.powershellgallery.com/
+# Create a module
+# Modules help you share your code and ensure you have the current verions loaded 
+
+ex. myTest.ps1 -> myTest.psm1
+
+# Loads the module into memory
+Import-Module myTest.psm1 
+Get-Module .\myTest
+
+#Create a mamfest to added meta data like versioning, author, GUID(good for tracking) 
+New-ModuleManifest -Path .\myTest.psd1
+Test-Modulemanifest -Path .\myTest.psd1
+
+# OTher commands
+Install-Module
+Find-Module
+Get-Module
+Register-Module
+Save-Module -Name moduleName -Path C:\eval
+
+$env:PSModulePath 
+- In VsCode click F8 to show paths
+ex. C:\Progam Files\PowerShell\Moduels
+
