@@ -1,0 +1,3 @@
+As of writing this it is 2025 and you should not be using Powershell ISA. Powershell ISA will not support newer versions
+
+Please download VsCode and install the PowerShell extension from Microsoft
