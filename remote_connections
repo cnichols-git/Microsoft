@@ -1,0 +1,26 @@
+# How to remotely connect to a Windows system
+
+You will need credentails that have permission on that system or systems to connect remotley and run commands
+
+One way 
+Create a variable to store the credentails
+$creds = Get-Credentails
+
+This will initiat a log in window that you can type the daomain\login name and password
+
+This will be stored as a string 
+$creds
+lab\administrator  System.security.SecureString
+
+To use these stored credentials try the following
+
+invoke-command -ComputerName DC01 -ScriptBlock {Get-Date} -Crednetial $creds
+
+Second way
+# Create a permanent commection to a or some servers
+Enter-PSSesion -ComputerName DC01 -Credentail $creds
+Or
+PSSession -ComputerName DC01 -Credential (Get-Credential)
+
+# Renember that when running command to remote systems it is serialized, meaning one runs then the next
+# Consider creating a variable to aviod this
