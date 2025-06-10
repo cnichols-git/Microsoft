@@ -1,0 +1,40 @@
+## Adding user to AzureAD
+
+# One way to bulk load is with a .csv file
+
+- log into MS Azure
+- choose Bulk create from the Bulk operations menu drop down
+- Download the csv template spreadsheet
+
+This spreadsheet will provide the templated form that will allow you to "save as" a .csv file that can then be updloaded in the web interface of MS Azure
+
+# Antoher method is to use PowerShell to remotely connce to MS Azure and use scripting logic to add users
+
+- First you will need to install a module "#Install-Module -Name AzureAD"
+- "#Connect-AzureAD" and it will prompt you for credentials
+
+Create a single user:
+  $passwordProfile = New-Object -TypeName Microsoft.Open.AzureAD.Model.PasswordProfile
+  $passwordProfile.Password = "YourPassword"
+  $passwordProfile.ForceChangePasswordNextLogin = $true
+  
+  New-AzureADUser -DisplayName "Your Display Name" -UserPrincipalName "your.username@your.domain.com" -PasswordProfile $passwordProfile -MailNickName "MailNickname" -AccountEnabled $true
+
+Create multiple users from a CSV file:
+# Import the CSV file
+$users = Import-Csv -Path "C:\temp\NewAccounts.csv" ## change file path as needed
+
+# Create a password profile
+  $PasswordProfile = @{
+      Password = 'Password123'
+      }
+  
+  # Loop through each user in the CSV file
+  foreach ($user in $users) {
+      # Create a new user
+      $newUser = New-MgUser -DisplayName $user.DisplayName -GivenName $user.FirstName -Surname $user.LastName -UserPrincipalName $user.UserPrincipalName -UsageLocation $user.UsageLocation -MailNickname $user.MailNickname -PasswordProfile $passwordProfile -AccountEnabled
+  
+      # Assign a license to the new user
+      $e5Sku = Get-MgSubscribedSku -All | Where SkuPartNumber -eq 'SPE_E5' ## Microsoft 365 E5 license code - https://learn.microsoft.com/en-us/entra/identity/users/licensing-service-plan-reference
+      Set-MgUserLicense -UserId $newUser.Id -AddLicenses @{SkuId = $e5Sku.SkuId} -RemoveLicenses @()
+  }
